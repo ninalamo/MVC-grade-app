@@ -20,3 +20,12 @@ html {
 body {
   margin-bottom: 60px;
 }
+
+.form-group {
+    display: flex; /* Or use display: grid; */
+    align-items: center;
+}
+
+.form-group label {
+    margin-right: 10px; /* Adjust spacing as needed */
+}
