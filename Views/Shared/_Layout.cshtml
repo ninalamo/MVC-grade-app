@@ -4,7 +4,12 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>@ViewData["Title"] - MVC_grade_app</title>
-    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+    @* <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" /> *@
+    <!-- Bootstrap CSS without integrity attribute -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet">
+
+
+
     <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
     <link rel="stylesheet" href="~/MVC_grade_app.styles.css" asp-append-version="true" />
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-0evSXhkEGibvZDvtQPjT1QJturnT4vcQ79iMHz5v2IKVSmHGCvBrVWRn5D6i6vVC" crossorigin="anonymous">
@@ -38,13 +43,40 @@
                 </div>
             </div>
             <div id="page-content-wrapper">
-                <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white">
-                    <div class="container-fluid">
-                        <div class="navbar-collapse collapse d-sm-inline-flex justify-content-end">
-                            <partial name="_LoginPartial" />
+                <div class="container">
+                    <ol class="breadcrumb mt-2">
+                        <li class="breadcrumb-item">
+                          
+                            @(((ViewContext)this.ViewContext).RouteData.Values["controller"]?.ToString() ?? "")
+                           
+                        </li>
+                        @* Dynamic crumb items based on controller and action *@
+                        <li class="breadcrumb-item active">
+                            @if (ViewData["Title"] != null)
+                            {
+                                @ViewData["Title"]
+                            }
+                            else
+                            {
+                                @(((ViewContext)this.ViewContext).RouteData.Values["action"]?.ToString() ?? "")
+                            }
+                        </li>
+                        <li class="navbar-collapse collapse d-sm-inline-flex justify-content-end">
+                           <partial name="_LoginPartial" />
+                        </li>
+
+                    </ol>
+                    @* <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white">
+                        <div class="container-fluid">
+                            <div class="navbar-collapse collapse d-sm-inline-flex justify-content-end">
+                                <partial name="_LoginPartial" />
+                            </div>
                         </div>
-                    </div>
-                </nav>
+                    </nav> *@
+                </div>
+                
+                
+
                 <div class="container">
                     <main role="main" class="pb-3">
                         @RenderBody()
