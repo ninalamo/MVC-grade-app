@@ -1,15 +1,12 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using MVC_grade_app.Data;
 using MVC_grade_app.Entities;
 
 namespace MVC_grade_app.Controllers
 {
+    [Authorize]
     public class StudentsController(ApplicationDbContext context) : Controller
     {
 
