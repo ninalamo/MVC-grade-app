@@ -193,11 +193,11 @@ namespace MVC_grade_app.Controllers
             }
             catch (Exception ex)
             {
-                TempData["UploadError"] = $"An error occurred: {ex.Message}";
+                TempData["ErrorMessage"] = $"An error occurred: {ex.Message}";
                 return RedirectToAction("Index");
             }
 
-            TempData["UploadSuccess"] = "Students uploaded successfully!";
+            TempData["SuccessMessage"] = "Students uploaded successfully!";
             return RedirectToAction("Index");
         }
 

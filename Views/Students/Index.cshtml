@@ -7,18 +7,18 @@
 <h1>@ViewData["Title"]</h1>
 
 
-@if (TempData["UploadSuccess"] != null)
+@if (TempData["SuccessMessage"] != null)
 {
     <div class="alert alert-success alert-dismissible fade show" role="alert">
-        @TempData["UploadSuccess"]
+        @TempData["SuccessMessage"]
         <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
     </div>
 }
 
-@if (TempData["UploadError"] != null)
+@if (TempData["ErrorMessage"] != null)
 {
     <div class="alert alert-danger alert-dismissible fade show" role="alert">
-        @TempData["UploadError"]
+        @TempData["ErrorMessage"]
         <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
     </div>
 }
@@ -70,12 +70,5 @@
         </tbody>
     </table>
 </div>
-
-@section Scripts
-{
- 
-    <script>
-      
-    </script>
-
-}
+@await Html.PartialAsync("Success")
+@await Html.PartialAsync("Error")
