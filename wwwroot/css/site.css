@@ -1,4 +1,4 @@
-html {
+/*html {
   font-size: 14px;
 }
 
@@ -22,13 +22,13 @@ body {
 }
 
 .form-group {
-    display: flex; /* Or use display: grid; */
-    align-items: center;
+    display: flex;*/ /* Or use display: grid; */
+    /*align-items: center;
 }
 
 .form-group label {
-    margin-right: 10px; /* Adjust spacing as needed */
-}
+    margin-right: 10px;*/ /* Adjust spacing as needed */
+/*}*/
 
 /* Sidebar */
 #sidebar-wrapper {
