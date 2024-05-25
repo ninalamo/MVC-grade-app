@@ -15,5 +15,6 @@ namespace MVC_grade_app.Data
         public DbSet<Course> Courses { get; set; }
         public DbSet<Section> Sections { get; set; }
         public DbSet<GradeSheet> GradeSheets { get; set; }
+        public DbSet<Activity> Activities { get; set; }
     }
 }

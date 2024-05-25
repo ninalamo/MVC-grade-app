@@ -39,7 +39,7 @@ namespace MVC_grade_app.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Activity");
+                    b.ToTable("Activities");
                 });
 
             modelBuilder.Entity("MVC_grade_app.Entities.Course", b =>

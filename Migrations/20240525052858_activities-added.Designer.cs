@@ -12,8 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace MVC_grade_app.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20240525043359_activity--added")]
-    partial class activityadded
+    [Migration("20240525052858_activities-added")]
+    partial class activitiesadded
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -42,7 +42,7 @@ namespace MVC_grade_app.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Activity");
+                    b.ToTable("Activities");
                 });
 
             modelBuilder.Entity("MVC_grade_app.Entities.Course", b =>

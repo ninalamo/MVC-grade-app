@@ -1,90 +1,114 @@
-﻿<!DOCTYPE html>
+﻿@using Microsoft.AspNetCore.Identity
+@inject SignInManager<IdentityUser> SignInManager
+@inject UserManager<IdentityUser> UserManager
+@{
+    var loggedIn = User != null && User.Identity != null && User.Identity.IsAuthenticated;
+}
+<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>@ViewData["Title"] - MVC_grade_app</title>
-    @* <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" /> *@
-    <!-- Bootstrap CSS without integrity attribute -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" rel="stylesheet">
+
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet">
-
-
-
     <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
     <link rel="stylesheet" href="~/MVC_grade_app.styles.css" asp-append-version="true" />
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-0evSXhkEGibvZDvtQPjT1QJturnT4vcQ79iMHz5v2IKVSmHGCvBrVWRn5D6i6vVC" crossorigin="anonymous">
+
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/2.9.2/umd/popper.min.js"></script>
+
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/5.2.0/js/bootstrap.min.js"></script>
+
     <style>
-        /* Remove shadow below navbar */
-        .navbar.border-bottom {
-            border-bottom: none;
+        /* Submenu (collapsed state) */
+        .dropdown-menu.show {
+            display: block;
         }
 
-        /* Style the sidebar */
-        #sidebar-wrapper {
-            background-color: #f8f9fa; /* Light gray background */
-            border-right: 1px solid #e0e0e0; /* Thin border */
+        .sidebar-heading {
+            font-size: 1.2rem;
+            font-weight: bold;
+            padding: 1rem;
         }
 
-        /* Double the padding of page-content-wrapper */
-        #page-content-wrapper {
-            padding: 2rem !important;
+        .list-group-item {
+            background-color: transparent;
+            border: none;
+            border-radius: 0;
+            padding: 0.5rem 1rem;
+            color: #fff;
+        }
+
+            .list-group-item:hover {
+                background-color: #343a40;
+            }
+
+        .dropdown-menu a {
+            color: #000;
         }
     </style>
 </head>
 <body>
     <header>
-        <div class="d-flex" id="wrapper">
-            <div class="bg-light border-right" id="sidebar-wrapper">
-                <div class="sidebar-heading">MVC_grade_app</div>
-                <div class="list-group list-group-flush">
-                    <a asp-action="Index" asp-controller="Home" class="list-group-item list-group-item-action bg-light">Home</a>
-                    <a asp-action="Index" asp-controller="Students" class="list-group-item list-group-item-action bg-light">Students</a>
-                    <a asp-action="Index" asp-controller="Courses" class="list-group-item list-group-item-action bg-light">Courses</a>
-                    <a asp-action="Index" asp-controller="Sections" class="list-group-item list-group-item-action bg-light">Sections</a>
-                </div>
-            </div>
-            <div id="page-content-wrapper">
-                <div class="container">
-                    <ol class="breadcrumb mt-2">
-                        <li class="breadcrumb-item">
-                          
-                            @(((ViewContext)this.ViewContext).RouteData.Values["controller"]?.ToString() ?? "")
-                           
-                        </li>
-                        @* Dynamic crumb items based on controller and action *@
-                        <li class="breadcrumb-item active">
-                            @if (ViewData["Title"] != null)
-                            {
-                                @ViewData["Title"]
-                            }
-                            else
-                            {
-                                @(((ViewContext)this.ViewContext).RouteData.Values["action"]?.ToString() ?? "")
-                            }
-                        </li>
-                        <li class="navbar-collapse collapse d-sm-inline-flex justify-content-end">
-                           <partial name="_LoginPartial" />
-                        </li>
-
-                    </ol>
-                    @* <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white">
-                        <div class="container-fluid">
-                            <div class="navbar-collapse collapse d-sm-inline-flex justify-content-end">
-                                <partial name="_LoginPartial" />
+    
+            <div class="d-flex" id="wrapper">
+                <div class="bg-dark border-right" id="sidebar-wrapper">
+                    <div class="sidebar-heading text-white">MVC_grade_app</div>
+                @if (loggedIn)
+                {
+                    <div class="list-group list-group-flush">
+                        <div class="">
+                            <a href="#" class="dropdown-toggle list-group-item px-4" data-bs-toggle="dropdown">
+                                <i class="fas fa-cog"></i> Configuration
+                            </a>
+                            <div class="dropdown-menu p-3">
+                                <a asp-controller="Students" asp-action="Index" class="dropdown-item">Students</a>
+                                <a asp-controller="Courses" asp-action="Index" class="dropdown-item">Courses</a>
+                                <a asp-controller="Sections" asp-action="Index" class="dropdown-item">Sections</a>
+                                <a asp-controller="Activities" asp-action="Index" class="dropdown-item">Activities</a>
                             </div>
                         </div>
-                    </nav> *@
-                </div>
-                
-                
+                    </div>
+                }
+            </div>
+                <div id="page-content-wrapper">
+                    <div class="container">
+                        <ol class="breadcrumb mt-2">
+                            @if(loggedIn){
+                            <li class="breadcrumb-item">
+                                @(((ViewContext)this.ViewContext).RouteData.Values["controller"]?.ToString() ?? "")
+                            </li>
+                            <li class="breadcrumb-item active">
+                                @if (ViewData["Title"] != null)
+                                {
+                                    @ViewData["Title"]
+                                }
+                                else
+                                {
+                                    @(((ViewContext)this.ViewContext).RouteData.Values["action"]?.ToString() ?? "")
+                                }
+                            </li>
+                            
+                            }
+                        <li class="navbar-collapse collapse d-sm-inline-flex justify-content-end">
+                            <partial name="_LoginPartial" />
+                        </li>
+                        </ol>
+                    </div>
 
-                <div class="container">
-                    <main role="main" class="pb-3">
-                        @RenderBody()
-                    </main>
+                    <div id="page-content-wrapper">
+                        <div class="container-fluid">
+                            <main role="main" class="px-5 pb-5">
+                                @RenderBody()
+                            </main>
+                        </div>
+                    </div>
+
                 </div>
             </div>
-        </div>
+      
     </header>
     <footer class="border-top footer text-muted">
         <div class="container">
@@ -101,6 +125,15 @@
             e.preventDefault();
             $("#wrapper").toggleClass("toggled");
         });
+
+        const dropdownLinks = document.querySelectorAll('.dropdown-toggle');
+
+        dropdownLinks.forEach(link => {
+            link.addEventListener('click', function (event) {
+                event.preventDefault();
+            });
+        });
+
     </script>
 </body>
 </html>
