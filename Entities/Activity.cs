@@ -2,11 +2,12 @@
 
 namespace MVC_grade_app.Entities
 {
-    public class Course
+    public class Activity
     {
         [Key]
         public Guid Id { get; set; }
         public required string? Title { get; set; }
-        public string? Description { get; set; }
+        public required decimal? Percentage { get; set; }
+        public ActivityTypeEnum Type { get; set; }
     }
 }

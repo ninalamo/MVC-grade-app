@@ -7,10 +7,10 @@ namespace MVC_grade_app.Entities
     {
         [Key]
         public Guid Id { get; set; }
-        public string? Name { get; set; }
+        public required string? Name { get; set; }
 
 
-        [ForeignKey("CourseId")]
+        [ForeignKey(nameof(CourseId))]
         public Guid CourseId { get; set; }
         public Course? Course { get; set; }
 
