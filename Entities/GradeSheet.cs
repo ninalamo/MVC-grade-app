@@ -9,7 +9,7 @@ namespace MVC_grade_app.Entities
         public Guid Id { get; set; }
         [ForeignKey(nameof(SectionId))]
         public Guid SectionId { get; set; }
-
+        public string? Title { get; set; }
         public string? CreatedBy { get; set; }
         public string? ModifiedBy { get; set; }
         public DateTime CreatedDateTime { get; set; } = DateTime.Now;

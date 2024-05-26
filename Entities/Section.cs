@@ -12,7 +12,6 @@ namespace MVC_grade_app.Entities
 
         [ForeignKey(nameof(CourseId))]
         public Guid CourseId { get; set; }
-        public Course? Course { get; set; }
-
+        public Course? Course { get; set; }        
     }
 }

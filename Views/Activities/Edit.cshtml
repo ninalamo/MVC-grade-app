@@ -1,4 +1,5 @@
-﻿@model MVC_grade_app.Entities.Activity
+﻿@using MVC_grade_app.Entities;
+@model MVC_grade_app.Entities.Activity
 
 @{
     ViewData["Title"] = "Edit";
@@ -11,8 +12,8 @@
 <div class="row">
     <div class="col-md-4">
         <form asp-action="Edit">
-            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <input type="hidden" asp-for="Id" />
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <div class="form-group">
                 <label asp-for="Title" class="control-label"></label>
                 <input asp-for="Title" class="form-control" />
@@ -25,11 +26,14 @@
             </div>
             <div class="form-group">
                 <label asp-for="Type" class="control-label"></label>
-                <select asp-for="Type" class="form-control"></select>
+                <select asp-for="Type" class="form-control">
+                    <option value="@ActivityTypeEnum.ClassStanding">Class Standing</option>
+                    <option value="@ActivityTypeEnum.MajorExam">Major Exam</option>
+                </select>
                 <span asp-validation-for="Type" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <input type="submit" value="Save" class="btn btn-primary" />
+                <input type="submit" value="Upate" class="btn btn-primary" />
             </div>
         </form>
     </div>
@@ -40,5 +44,7 @@
 </div>
 
 @section Scripts {
-    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
 }
