@@ -16,5 +16,6 @@ namespace MVC_grade_app.Data
         public DbSet<Section> Sections { get; set; }
         public DbSet<Activity> Activities { get; set; }
         public DbSet<Subject> Subjects { get; set; }
+        public DbSet<MVC_grade_app.Entities.SubjectEnrolment> SubjectEnrolment { get; set; } = default!;
     }
 }

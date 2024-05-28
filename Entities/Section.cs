@@ -14,16 +14,4 @@ namespace MVC_grade_app.Entities
         public Guid CourseId { get; set; }
         public Course? Course { get; set; }        
     }
-
-    public class SubjectEnrolment
-    {
-        public Guid Id { get; set; }
-
-        [ForeignKey(nameof(SectionId))]
-        public Guid SectionId { get; set; }
-
-        [ForeignKey(nameof(SubjectId))]
-        public Guid SubjectId { get; set; }
-
-    }
 }
