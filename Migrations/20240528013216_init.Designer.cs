@@ -12,8 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace MVC_grade_app.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20240525043108_grade-sheet---added")]
-    partial class gradesheetadded
+    [Migration("20240528013216_init")]
+    partial class init
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -42,7 +42,7 @@ namespace MVC_grade_app.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Activity");
+                    b.ToTable("Activities");
                 });
 
             modelBuilder.Entity("MVC_grade_app.Entities.Course", b =>
@@ -82,6 +82,9 @@ namespace MVC_grade_app.Migrations
 
                     b.Property<Guid>("SectionId")
                         .HasColumnType("uniqueidentifier");
+
+                    b.Property<string>("Title")
+                        .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
 
@@ -174,6 +177,8 @@ namespace MVC_grade_app.Migrations
                     b.HasKey("Id");
 
                     b.HasIndex("GradeSheetId");
+
+                    b.HasIndex("StudentId");
 
                     b.ToTable("StudentGrade");
                 });
@@ -422,6 +427,14 @@ namespace MVC_grade_app.Migrations
                     b.HasOne("MVC_grade_app.Entities.GradeSheet", null)
                         .WithMany("StudentGrades")
                         .HasForeignKey("GradeSheetId");
+
+                    b.HasOne("MVC_grade_app.Entities.Student", "Student")
+                        .WithMany()
+                        .HasForeignKey("StudentId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Student");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>

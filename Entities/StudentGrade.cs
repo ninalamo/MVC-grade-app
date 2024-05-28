@@ -9,6 +9,8 @@ namespace MVC_grade_app.Entities
         public Guid Id { get; set; }
         [ForeignKey(nameof(StudentId))]
         public Guid StudentId { get; set; }
+        public Student? Student { get; set; }
         public ICollection<StudentActivity> StudentActivities { get; set; } = [];
+
     }
 }

@@ -11,5 +11,7 @@ namespace MVC_grade_app.Entities
         public required string? LastName { get; set; }
         public string? MiddleName { get; set; }
         public required string? Email { get; set; }
+
+        public ICollection<SubjectEnrolment> Subjects { get; set; } = [];
     }
 }

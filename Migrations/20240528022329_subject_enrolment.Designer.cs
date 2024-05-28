@@ -12,8 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace MVC_grade_app.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20240526031700_add-title-to-gradesheet")]
-    partial class addtitletogradesheet
+    [Migration("20240528022329_subject_enrolment")]
+    partial class subject_enrolment
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -80,15 +80,10 @@ namespace MVC_grade_app.Migrations
                     b.Property<DateTime>("ModifiedDateTime")
                         .HasColumnType("datetime2");
 
-                    b.Property<Guid>("SectionId")
-                        .HasColumnType("uniqueidentifier");
-
                     b.Property<string>("Title")
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
-
-                    b.HasIndex("SectionId");
 
                     b.ToTable("GradeSheets");
                 });
@@ -178,7 +173,69 @@ namespace MVC_grade_app.Migrations
 
                     b.HasIndex("GradeSheetId");
 
+                    b.HasIndex("StudentId");
+
                     b.ToTable("StudentGrade");
+                });
+
+            modelBuilder.Entity("MVC_grade_app.Entities.StudentSubject", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<Guid>("StudentId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<Guid>("SubjectId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("StudentId");
+
+                    b.HasIndex("SubjectId");
+
+                    b.ToTable("StudentSubjects");
+                });
+
+            modelBuilder.Entity("MVC_grade_app.Entities.Subject", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<string>("Code")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Description")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Subjects");
+                });
+
+            modelBuilder.Entity("MVC_grade_app.Entities.SubjectEnrolment", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<Guid>("SectionId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<Guid?>("StudentId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<Guid>("SubjectId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("StudentId");
+
+                    b.ToTable("SubjectEnrolment");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRole", b =>
@@ -383,17 +440,6 @@ namespace MVC_grade_app.Migrations
                     b.ToTable("AspNetUserTokens", (string)null);
                 });
 
-            modelBuilder.Entity("MVC_grade_app.Entities.GradeSheet", b =>
-                {
-                    b.HasOne("MVC_grade_app.Entities.Section", "Section")
-                        .WithMany()
-                        .HasForeignKey("SectionId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Section");
-                });
-
             modelBuilder.Entity("MVC_grade_app.Entities.Section", b =>
                 {
                     b.HasOne("MVC_grade_app.Entities.Course", "Course")
@@ -425,6 +471,40 @@ namespace MVC_grade_app.Migrations
                     b.HasOne("MVC_grade_app.Entities.GradeSheet", null)
                         .WithMany("StudentGrades")
                         .HasForeignKey("GradeSheetId");
+
+                    b.HasOne("MVC_grade_app.Entities.Student", "Student")
+                        .WithMany()
+                        .HasForeignKey("StudentId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Student");
+                });
+
+            modelBuilder.Entity("MVC_grade_app.Entities.StudentSubject", b =>
+                {
+                    b.HasOne("MVC_grade_app.Entities.Student", "Student")
+                        .WithMany()
+                        .HasForeignKey("StudentId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("MVC_grade_app.Entities.Subject", "Subject")
+                        .WithMany()
+                        .HasForeignKey("SubjectId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Student");
+
+                    b.Navigation("Subject");
+                });
+
+            modelBuilder.Entity("MVC_grade_app.Entities.SubjectEnrolment", b =>
+                {
+                    b.HasOne("MVC_grade_app.Entities.Student", null)
+                        .WithMany("Subjects")
+                        .HasForeignKey("StudentId");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
@@ -481,6 +561,11 @@ namespace MVC_grade_app.Migrations
             modelBuilder.Entity("MVC_grade_app.Entities.GradeSheet", b =>
                 {
                     b.Navigation("StudentGrades");
+                });
+
+            modelBuilder.Entity("MVC_grade_app.Entities.Student", b =>
+                {
+                    b.Navigation("Subjects");
                 });
 
             modelBuilder.Entity("MVC_grade_app.Entities.StudentGrade", b =>

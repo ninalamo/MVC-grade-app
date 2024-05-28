@@ -10,8 +10,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>@ViewData["Title"] - MVC_grade_app</title>
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" rel="stylesheet">
-
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" rel="stylesheet">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
     <link rel="stylesheet" href="~/MVC_grade_app.styles.css" asp-append-version="true" />
@@ -58,14 +57,21 @@
                     <div class="sidebar-heading text-white">MVC_grade_app</div>
                 @if (loggedIn)
                 {
+                   
                     <div class="list-group list-group-flush">
                         <div class="">
+                            <a asp-controller="GradeSheets" asp-action="Index" class="list-group-item px-4">
+                                <i class="fa-solid fa-sheet-plastic"></i> &nbsp;Grade Sheets
+                            </a>
+                        </div>
+                        <div class="">
                             <a href="#" class="dropdown-toggle list-group-item px-4" data-bs-toggle="dropdown">
-                                <i class="fas fa-cog"></i> Configuration
+                                <i class="fa fa-cog"></i> Configuration
                             </a>
                             <div class="dropdown-menu p-3">
                                 <a asp-controller="Students" asp-action="Index" class="dropdown-item">Students</a>
                                 <a asp-controller="Courses" asp-action="Index" class="dropdown-item">Courses</a>
+                                <a asp-controller="Subjects" asp-action="Index" class="dropdown-item">Subjects</a>
                                 <a asp-controller="Sections" asp-action="Index" class="dropdown-item">Sections</a>
                                 <a asp-controller="Activities" asp-action="Index" class="dropdown-item">Activities</a>
                             </div>

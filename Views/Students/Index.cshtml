@@ -6,22 +6,8 @@
 
 <h1>@ViewData["Title"]</h1>
 
-
-@if (TempData["SuccessMessage"] != null)
-{
-    <div class="alert alert-success alert-dismissible fade show" role="alert">
-        @TempData["SuccessMessage"]
-        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-    </div>
-}
-
-@if (TempData["ErrorMessage"] != null)
-{
-    <div class="alert alert-danger alert-dismissible fade show" role="alert">
-        @TempData["ErrorMessage"]
-        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-    </div>
-}
+@await Html.PartialAsync("Success")
+@await Html.PartialAsync("Error")
 
 
 <div class="container">
@@ -70,5 +56,3 @@
         </tbody>
     </table>
 </div>
-@await Html.PartialAsync("Success")
-@await Html.PartialAsync("Error")
